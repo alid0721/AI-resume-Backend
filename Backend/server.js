@@ -7,6 +7,9 @@ const app=express();
 const path = require('path');
 const fs=require('fs');
 
+const authRoutes = require('./controllers/auth.routes.js')
+const testJwtRouter= require('./controllers/test-jwt.js')
+const verifyToken= require('./middleware/verify-token.js')
 // Middleware
 app.use(cors());
 app.use(logger('dev'));
@@ -20,3 +23,11 @@ mongoose.connect(process.env.MONGODB_URI)
 mongoose.connection.on('connected', () => {
   console.log('Connected to MongoDB');
 });
+
+//Routes
+app.use('/auth',authRoutes)
+app.use('/test-jwt',verifyToken,testJwtRouter)
+
+app.listen(port,()=>{
+  console.log('The express app is ready')
+})

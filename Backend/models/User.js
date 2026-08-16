@@ -18,8 +18,12 @@ const userSchema = new schema({
     password:{
         type:String,
         required:[true,'Password is required']
-    }
-    
+    },
+    accountType:{
+        type:String,
+        enum:['individual','Business'],
+        default:'individual'
+    },
 })
 
 const User=model('User',userSchema)
