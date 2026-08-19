@@ -10,6 +10,7 @@ const fs=require('fs');
 const authRoutes = require('./controllers/auth.routes.js')
 const testJwtRouter= require('./controllers/test-jwt.js')
 const verifyToken= require('./middleware/verify-token.js')
+const jobListRouter=require('./controllers/JobList.js')
 // Middleware
 app.use(cors());
 app.use(logger('dev'));
@@ -27,7 +28,7 @@ mongoose.connection.on('connected', () => {
 //Routes
 app.use('/auth',authRoutes)
 app.use('/test-jwt',verifyToken,testJwtRouter)
-
+app.use('/Jobs',verifyToken,jobListRouter)
 app.listen(port,()=>{
   console.log('The express app is ready')
 })
